@@ -61,7 +61,7 @@ for orden in especificaciones:
             'Modelo': nombre,
             'AIC': round(ajuste.aic, 3),
             'BIC': round(ajuste.bic, 3),
-            'Log-Lik': round(ajuste.llf, 3),
+            #'Log-Lik': round(ajuste.llf, 3),
             'DW': round(dw, 4),
             'LB p-val (lag10)': round(lb_pval, 4),
         })
@@ -92,22 +92,6 @@ mejor_nombre = df_res.iloc[0]['Modelo']
 mejor_ajuste = modelos_ajustados[mejor_nombre]
 print(f"\n=> Mejor modelo por AIC: {mejor_nombre}")
 
-# Discusion R2
-print("\n" + "=" * 70)
-print("DISCUSION SOBRE EL USO DE R2 EN MODELOS ARIMA:")
-print("=" * 70)
-print("""
-  El R2 NO es un criterio apropiado para seleccionar modelos ARIMA porque:
-  1. El R2 aumenta mecanicamente al agregar parametros (sobreajuste).
-  2. No penaliza la complejidad del modelo (a diferencia de AIC/BIC).
-  3. En modelos con diferenciacion (d>0), el R2 compara con una media trivial
-     de la serie diferenciada, no con la serie original, lo que puede ser
-     engañoso.
-  4. Los criterios AIC y BIC son preferibles: penalizan la log-verosimilitud
-     por el numero de parametros estimados (BIC penaliza mas fuertemente).
-  5. Adicionalmente, se debe verificar que los residuos sean ruido blanco
-     (Ljung-Box) y que el DW sea cercano a 2 (ausencia de autocorrelacion).
-""")
 
 # Grafico del mejor modelo: primera diferencia, fitted values, residuos
 fitted_en_diff = mejor_ajuste.fittedvalues.diff().dropna()
@@ -149,9 +133,4 @@ plt.savefig(os.path.join(ruta_guardado, f'arima_mejor_modelo_{mejor_nombre}.png'
 plt.close()
 
 print(f"Grafico guardado en: {ruta_guardado}")
-print("\nComportamiento esperado de los residuos:")
-print("  - Distribucion aproximadamente normal con media cero.")
-print("  - Sin autocorrelacion significativa (ruido blanco).")
-print("  - Varianza constante (homocedasticidad).")
-print("  - El test de Ljung-Box NO deberia rechazar la hipotesis de no autocorrelacion.")
-print("  - El DW deberia ser cercano a 2.")
+

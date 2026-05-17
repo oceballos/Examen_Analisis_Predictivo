@@ -59,25 +59,4 @@ else:
     print("  dlog(GDP UK) tampoco es estacionario -> posible I(2).")
     print("  => Se requeriria segunda diferencia.")
 
-print("\n" + "=" * 60)
-print("4 ESPECIFICACIONES ARIMA CANDIDATAS (con d=1):")
-print("=" * 60)
-print("""
-  La ACF de dlog(GDP) muestra autocorrelacion significativa en lag 1 y/o 2,
-  mientras que la PACF muestra un corte abrupto tras el lag 1 o 2.
-  Esto sugiere que la parte AR y MA de bajo orden son razonables.
 
-  Modelos candidatos:
-
-  1. ARIMA(1,1,0): La PACF tiene un pico en lag 1 -> componente AR(1) domina.
-                   Equivalente a un AR(1) sobre la primera diferencia.
-
-  2. ARIMA(0,1,1): La ACF tiene un pico en lag 1 y cae -> componente MA(1).
-                   Equivalente al modelo IMA(1,1), tipico para series economicas.
-
-  3. ARIMA(1,1,1): Combina AR(1) y MA(1) para mayor flexibilidad.
-                   Permite capturar patrones mixtos en la autocorrelacion.
-
-  4. ARIMA(2,1,0): AR(2) sobre la primera diferencia, si la PACF muestra
-                   autocorrelacion significativa hasta el lag 2.
-""")
