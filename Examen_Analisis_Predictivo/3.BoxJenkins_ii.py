@@ -8,7 +8,7 @@ import os
 # de la serie. ¿Que sugiere esta informacion respecto a la estacionariedad de la
 # serie? ¿Que tipo de decaimiento observa en el autocorrelograma?
 
-ruta_guardado = r"..\3.BoxJenkins_Graficos_ii"
+ruta_guardado = r".\3.BoxJenkins_Graficos_ii"
 if not os.path.exists(ruta_guardado):
     os.makedirs(ruta_guardado)
 

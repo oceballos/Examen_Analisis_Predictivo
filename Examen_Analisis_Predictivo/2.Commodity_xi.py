@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 import statsmodels.api as sm
 
-df = pd.read_excel('Ejemplo Datos commodities.xlsx')
+df = pd.read_excel('data/Ejemplo Datos commodities.xlsx')
 df.rename(columns={'Unnamed: 0': 'Date'}, inplace=True)
 df['Date'] = pd.to_datetime(df['Date'].str.replace('M', ''), format='%Y%m')
 df.set_index('Date', inplace=True)

@@ -5,7 +5,7 @@ from statsmodels.graphics.tsaplots import plot_acf, plot_pacf
 import os
 
 # 1. Definir ruta y cargar datos
-ruta_guardado = r"..\2.Commodity_Graficos_ii"
+ruta_guardado = r".\2.Commodity_Graficos_ii"
 if not os.path.exists(ruta_guardado):
     os.makedirs(ruta_guardado)
 

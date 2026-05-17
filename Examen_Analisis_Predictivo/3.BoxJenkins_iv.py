@@ -13,7 +13,7 @@ import os
 # (ii) valores ajustados dentro de muestra, (iii) residuos. Discuta el comportamiento
 # esperado de los residuos.
 
-ruta_guardado = r"..\3.BoxJenkins_Graficos_iv"
+ruta_guardado = r".\3.BoxJenkins_Graficos_iv"
 if not os.path.exists(ruta_guardado):
     os.makedirs(ruta_guardado)
 

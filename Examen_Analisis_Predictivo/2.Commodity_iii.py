@@ -5,7 +5,7 @@ import scipy.stats as stats
 import os
 
 # 1. Definir ruta y cargar datos
-ruta_guardado = r"..\2.Commodity_Graficos_iii"
+ruta_guardado = r".\2.Commodity_Graficos_iii"
 if not os.path.exists(ruta_guardado):
     os.makedirs(ruta_guardado)
 

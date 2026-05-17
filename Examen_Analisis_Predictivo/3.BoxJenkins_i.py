@@ -10,7 +10,7 @@ import os
 # respecto a la estacionariedad de la serie? ¿Que tipo de decaimiento observa en
 # el autocorrelograma? Argumente en detalle su respuesta.
 
-ruta_guardado = r"..\3.BoxJenkins_Graficos_i"
+ruta_guardado = r".\3.BoxJenkins_Graficos_i"
 if not os.path.exists(ruta_guardado):
     os.makedirs(ruta_guardado)
 
