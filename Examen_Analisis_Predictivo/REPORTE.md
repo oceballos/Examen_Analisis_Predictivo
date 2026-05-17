@@ -1,4 +1,5 @@
-
+# EXÁMEN ANALISIS PREDICTIVO EN FINANZAS
+Autores: Osvaldo Ceballos, Yerko Fuentes, Paloma San Martin.
 
 ## PARTE 3 METODOLOGÍA BOX-JENKINS 
 Se usa el archivo gdp_uk que contiene observaciones trimestrales del 
@@ -16,24 +17,24 @@ de raiz unitaria.
 
 ### b. ANÁLISIS EN 1ERAS DIFERENCIAS (LOG)
 La serie dlog(GDP) fluctúa alrededor de una media constante positiva.
-La ACF cae rápida y abruptamente hacia cero desde el lag 1.")
-Este patron es consistente con un proceso estacionario (posiblemente ruido blanco o ARMA de bajo orden).")
-La primera diferencia logarÍtmica ELIMINA la tendencia y la serie resulta estacionaria.")
-Esto confirma que la serie en niveles es integrada de orden 1: I(1).")
+La ACF cae rápida y abruptamente hacia cero desde el lag 1.
+Este patron es consistente con un proceso estacionario (posiblemente ruido blanco).
+La primera diferencia logarÍtmica elimina la tendencia y la serie resulta estacionaria.
+Esto sugiere que la serie en niveles es integrada de orden 1: I(1).
 
-### c. ORDEN DE INTEGRACION DE LA SERIE PARA MODELOS ARIMA(p,d,q)
+### c. ORDEN DE INTEGRACIÓN DE LA SERIE PARA MODELOS ARIMA(p,d,q)
 
-Para anlizar el orden de integracion de la serie se usa el test ADF (ADF de Dickey-Fuller), el cual nos permite 
+Para analizar el orden de integración de la serie se usa el test ADF (ADF de Dickey-Fuller), el cual nos permite 
 determinar si la serie es estacionaria o no. Se compara la serie dlog(GDP) con la serie log(GDP) para determinar si (d=1) 
 permite rechazar H0 en el test ADF.
 
-============================================================
+
 CONCLUSION SOBRE EL ORDEN DE INTEGRACION:
-============================================================
+
   log(GDP UK) NO es estacionario en niveles.
   dlog(GDP UK) SI es estacionario.
-  => La serie es integrada de orden 1: I(1).
-  => Se modela con d=1 en el ARIMA(p,1,q).
+   - La serie es integrada de orden 1: I(1).
+   - Se modela con d=1 en el ARIMA(p,1,q).
 
 Especificaciones de modelos ARIMA candidatos (con d=1)
 
@@ -44,16 +45,16 @@ Especificaciones de modelos ARIMA candidatos (con d=1)
 
   Modelos candidatos:
 
-  1. ARIMA(1,1,0): La PACF tiene un pico en lag 1 -> componente AR(1) domina.
+   1. ARIMA(1,1,0): La PACF tiene un pico en lag 1 -> componente AR(1) domina.
                    Equivalente a un AR(1) sobre la primera diferencia.
 
-  2. ARIMA(0,1,1): La ACF tiene un pico en lag 1 y cae -> componente MA(1).
+   2. ARIMA(0,1,1): La ACF tiene un pico en lag 1 y cae -> componente MA(1).
                    Equivalente al modelo IMA(1,1).
 
-  3. ARIMA(1,1,1): Combina AR(1) y MA(1) para mayor flexibilidad.
+   3. ARIMA(1,1,1): Combina AR(1) y MA(1) para mayor flexibilidad.
                    Permite capturar patrones mixtos en la autocorrelación.
 
-  4. ARIMA(2,1,0): AR(2) sobre la primera diferencia, si la PACF muestra
+   4. ARIMA(2,1,0): AR(2) sobre la primera diferencia, si la PACF muestra
                    autocorrelación significativa hasta el lag 2.
 
 ### d. MODELOS ARIMA(p,d,q) y discusión sobre indicadores de calidad.
@@ -62,14 +63,12 @@ Según lo definido en [3.c] se realizan pruebas con todas las especificaciones c
 Utilizando el test AIC y BIC se selecciona el modelo ARIMA(1,1,1) con el mejor 
 indicador de calidad (AIC). Además se muestra  el valor de DW (o test F de Durbin-Watson).
 
-======================================================================
-TABLA RESUMEN - Criterios de Información y Diagnóstico
-======================================================================
-      Modelo      AIC      BIC  Log-Lik     DW
-ARIMA(1,1,1) -527.491 -520.619  266.745 1.0093
-ARIMA(2,1,0) -523.900 -517.028  264.950 1.0094
-ARIMA(1,1,0) -522.667 -518.086  263.333 1.0094
-ARIMA(0,1,1) -504.409 -499.828  254.205 1.0093
+| Modelo | AIC | BIC | Log-Lik | DW |
+|---|---:|---:|---:|---:|
+| ARIMA(1,1,1) | -527.491 | -520.619 | 266.745 | 1.0093 |
+| ARIMA(2,1,0) | -523.900 | -517.028 | 264.950 | 1.0094 |
+| ARIMA(1,1,0) | -522.667 | -518.086 | 263.333 | 1.0094 |
+| ARIMA(0,1,1) | -504.409 | -499.828 | 254.205 | 1.0093 |
 
 El modelo ARIMA(1,1,1) tiene un R2 de 0.81, pero el R2 NO es un criterio apropiado para seleccionar modelos ARIMA porque:
   1. El R2 aumenta por construcción al agregar párametros (sobreajuste).
@@ -84,7 +83,8 @@ Comportamiento esperado de los residuos:
 - Distribución aproximadamente normal con media cero.
 - Sin autocorrelación significativa (ruido blanco).
 - Varianza constante (homocedasticidad).
-- El DW debería ser cercano a 2.
+- El DW debería ser cercano a 2, en el caso de los modelos propeustos El estadístico DW es prácticamente 
+idéntico en todos los modelos (~1.009), lo que sugiere autocorrelación residual positiva moderada en todos los casos.
 
 ### e. PROBLEMAS DE LA ESTIMACIÓN DENTRO DE MUESTRA (IN-SAMPLE)
 
