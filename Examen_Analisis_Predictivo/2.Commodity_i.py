@@ -8,7 +8,7 @@ from statsmodels.graphics.tsaplots import plot_acf, plot_pacf
 import os
 
 # 1. Definir la ruta absoluta que indicaste
-ruta_guardado = r"..\2.Commodity_Graficos_i"
+ruta_guardado = r".\2.Commodity_Graficos_i"
 
 # Crear la carpeta si no existe
 if not os.path.exists(ruta_guardado):
