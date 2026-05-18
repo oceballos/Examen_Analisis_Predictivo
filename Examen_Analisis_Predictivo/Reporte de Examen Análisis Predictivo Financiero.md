@@ -2,6 +2,8 @@
 
 **Autores:** Osvaldo Ceballos · Yerko Fuentes · Paloma San Martín
 
+**Profesor:** Nicolás Hardy
+
 ---
 
 ## Pregunta 1 — Regresiones Espurias en Procesos AR(1)
