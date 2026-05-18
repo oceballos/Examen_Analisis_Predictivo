@@ -328,33 +328,8 @@ Se estiman las cuatro especificaciones candidatas. El criterio de selección pri
 
 ### e) Problemas de la Estimación Dentro de Muestra para el Pronóstico 2022–2030
 
-El análisis predictivo de series de tiempo presenta un problema importante cuando solo se evalúa dentro de la muestra de estimación: los modelos tienden a ajustarse bien a los datos históricos pero fallan al predecir fuera de ese rango.
+El análisis predictivo de series de tiempo tiene un problema importante cuando solo se evalúa dentro de la muestra de estimación: los modelos tienden a ajustarse muy bien a los datos históricos, pero fallan al predecir fuera de ese rango. Esto se agrava cuando existe una brecha temporal grande entre la muestra de estimación y el horizonte de pronóstico, ya que cambios estructurales relevantes quedan fuera del modelo y la incertidumbre crece con el tiempo. Por eso, según lo indicado en las referencias del enunciado coinciden en que la única forma de saber si un modelo realmente predice bien es evaluarlo con datos que no vio durante la estimación.
 
-#### Problemas principales
-
-**a) Sobreajuste (*overfitting*):** Los parámetros del modelo ARIMA son estimados minimizando el error dentro de la muestra 1980–1998. Un modelo con más parámetros siempre tendrá menor error in-sample, aunque no sea el más apropiado para predecir.
-
-**b) Brecha temporal excesiva:** La muestra cubre 1980–1998, pero el horizonte de pronóstico es 2022–2030. Esta brecha de más de 20 años implica que cambios estructurales relevantes (crisis de 2008, Brexit, COVID-19) no están incorporados en el modelo, y que la incertidumbre crece exponencialmente con el horizonte.
-
-**c) Intervalos de confianza subestimados:** La incertidumbre paramétrica no se refleja correctamente cuando se reportan solo los errores de pronóstico in-sample; los intervalos de predicción tendrían cobertura incorrecta (demasiado angostos).
-
-**d) Ausencia de evaluación real de capacidad predictiva:** Un modelo puede tener excelente ajuste in-sample (R², AIC, BIC) pero producir pronósticos de mala calidad. La única forma de evaluar genuinamente la capacidad predictiva es mediante análisis fuera de muestra.
-
-#### Análisis fuera de muestra (OOS) y referencias
-
-El análisis OOS separa los datos en una muestra de estimación (in-sample) y una de evaluación (out-of-sample), permitiendo una evaluación genuina del valor predictivo del modelo por encima de *benchmarks* simples.
-
-**West (2006)** sentó las bases formales del análisis predictivo fuera de muestra. Sus aportes principales son:
-
-- Distingue tres esquemas de ventana: *rolling* (fija deslizante), *recursive* (expandible) y *fixed* (parámetros fijos).
-- Deriva la distribución asintótica de estadísticos de comparación de pronósticos, permitiendo hacer inferencia sobre qué modelo predice mejor.
-- Señala que bajo ciertos esquemas los errores de pronóstico OOS están correlacionados en el tiempo, requiriendo corrección de la varianza con estimadores HAC.
-- Establece que la evaluación OOS es el estándar para determinar si un modelo tiene valor económico real, no solo ajuste estadístico.
-
-**Pincheira & Hardy (2019, 2021)** desarrollan una metodología de evaluación especialmente relevante para series macroeconómicas:
-
-- Proponen el **R²\_OOS** como medida de habilidad predictiva relativa frente a un *benchmark*: R²\_OOS = 1 − MSE\_modelo / MSE\_benchmark. Si R²\_OOS > 0, el modelo supera al *benchmark*; si R²\_OOS ≤ 0, no agrega valor predictivo.
-- Advierten que significancia estadística no implica necesariamente valor económico real.
-- Desarrollan el **test PHB** (Pincheira-Hardy-Bentancor), que mide si las rentabilidades medias de estrategias basadas en pronósticos son significativamente positivas, corrigiendo la autocorrelación mediante estimadores HAC (Newey-West).
+Para esto, West (2006) sentó las bases  del análisis fuera de muestra, distinguiendo distintos esquemas de ventana y mostrando cómo hacer inferencia sobre qué modelo predice mejor. Por su parte, Pincheira & Hardy (2019, 2021) tratan de solucionar el problema proponiendo el R²_OOS para medir qué tan bien le va al modelo versus benchmarks simples como la caminata aleatoria, advirtiendo además que un modelo estadísticamente significativo no necesariamente genera valor económico real. Para evaluar esa dimensión práctica, desarrollan el test PHB, que mide si las estrategias basadas en pronósticos efectivamente generan rentabilidades positivas, corrigiendo por autocorrelación con estimadores HAC.
 
 Para un pronóstico robusto del GDP UK hasta 2030 sería necesario: actualizar la muestra de estimación con datos post-1998, comparar el modelo ARIMA contra *benchmarks* simples mediante un esquema OOS recursivo o *rolling*, calcular el R²\_OOS para evaluar si el modelo agrega valor predictivo real, y reportar intervalos de predicción que incorporen la incertidumbre tanto del pronóstico como de los parámetros.
