@@ -1,5 +1,6 @@
 # Examen — Análisis Predictivo de Finanzas
 Autores: Osvaldo Ceballos, Yerko Fuentes, Paloma San Martin.
+
 Profesor: Nicolás Hardy
 
 ## Requisitos
